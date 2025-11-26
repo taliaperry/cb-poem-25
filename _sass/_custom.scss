@@ -2,3 +2,85 @@
     Put your custom SCSS here! 
     This allows you to override any CollectionBuilder or Bootstrap CSS without modifying the base theme files directly.
 */
+
+.sidebar{
+    width:inherit;
+}
+.big-themes{
+    background-color:light-blue;
+}
+.little-themes{
+    background-color:purple;
+}
+.justify-content-right{
+    justify-content:right!important
+}
+
+.primary-green{
+    background-color: #cce9e9;
+}
+.secondary-green{
+    background-color: #1b65a6;
+}
+.active-green{
+    background-color: #008f91;
+    color:white;
+    
+}
+.former-green{
+    background-color: #66bcbd;
+    color: white;
+}
+.top-section{
+    margin-top:10px;
+}
+.keyword-tab{
+    width:100%;
+    margin-bottom:10px;
+    float:right;
+    // text-align: right;
+    position: relative;
+    font-size: 1.2em;;
+}
+.keyword-tab p{
+    padding-left: 30%;
+}
+
+.nav-link {
+    color: #57bbc8;
+}
+.nav-link:hover{
+    color:white;
+}
+
+.lang-toggle{
+    background-color: #1b65a6;
+    color: white;
+    padding:5px 15px;
+}
+
+.theme-tab{
+    list-style: none;
+    margin-bottom:5px;
+    text-align: left;
+    float: right;
+    width:75%;
+    padding:5px;
+    font-size:1.1em;
+}
+.center-tab{
+    list-style: none;
+    margin-bottom:5px;
+    text-align: left;
+    float: right;
+    width:100%;
+}
+
+
+.main-img-container img {
+  width: 100%;
+}
+
+.third-content-row{
+    margin-top:1%;
+}
