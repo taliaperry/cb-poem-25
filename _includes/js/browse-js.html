@@ -5,6 +5,7 @@
 {% endif %}
 {%- assign fields = site.data.config-browse -%}
 <script>
+    console.log({{fields|jsonify}});
 
 /* add items */
 var items = [
@@ -23,6 +24,7 @@ var items = [
 
 /* function to create cards for each item */ 
 function makeCard(obj) {
+    console.log(obj);
     // placeholder image for lazyload
     var placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E";
     // find item link
@@ -37,44 +39,76 @@ function makeCard(obj) {
         thumbIcon = getIcon(obj.template,obj.format,"thumb");
     }
     var imgAlt = obj.alt ? obj.alt : obj.title;
-
+    // this is going to be annoying to redesign.
     // start card
-    var card = '<div class="item col-lg-4 col-md-6 mb-2"><div class="card">';
+    
+    var card = '<div class="item col-lg-4 col-md-6 mb-2"><div class="card primary-green">';
+        // title
+    card += '<div class="card-body text-center"> <h3 class="card-title h4"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
+        // creators
+    if(obj.creators_list){
+        card += '<p class="card-text">'+obj.creators_list+'</p>';
+    }
     // top image for items with image
     if(imgSrc) {
-        card += '<a href="' + itemHref + '"> <img class="card-img-top lazyload" src="' + placeholder + '" data-src="' + imgSrc + '" alt="' + imgAlt + '"></a>';
+        card += '<div class="browse-img-container"><a href="' + itemHref + '"> <img class="card-img-top lazyload" src="' + placeholder + '" data-src="' + imgSrc + '" alt="' + imgAlt + '"></a></div>';
     }
-    // title
-    card += '<div class="card-body text-center"> <h3 class="card-title h4"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
+    
     // icon thumb for item without image
     if(thumbIcon){
         card += '<p><a href="' + itemHref + '">' + thumbIcon + '</a></p>';
     }
     // other fields
-    card += '<p class="card-text">';
-    {% for f in fields %}{% unless f.hidden == 'true' %}
-    if(obj[{{ f.field | jsonify }}]){
-    {% if f.display_name %}card += '<strong>{{ f.display_name }}:</strong> ';{% endif %}
-    {% if f.btn == 'true' %}
-    var btns = obj[{{ f.field | jsonify }}].split(";");
-    for (var i = 0, len = btns.length; i < len; i++) {
-        if(btns[i] != "") {
-        card += '<a class="btn btn-sm btn-secondary m-1 text-wrap" href="{{ page.url | relative_url }}#' + encodeURIComponent(btns[i].trim()) + '">' + btns[i].trim() + '</a>';
-        }
-    }
-    {% else %}
-    card += obj[{{ f.field | jsonify }}];
-    {% endif %}
-    {% unless forloop.last %}card += '<br>';{% endunless %}
-    }
-    {% endunless %}{% endfor %}
-    card += '</p>';
+    // let's be explicit.
+    
+    //literacy active-green
+    card+= '<div class="browse-butt active-green">';
+            card+='<p>'+obj.keyword+'</p>'; //PUTTING IN KEYWORD FOR NOW BECAUSE WE DONT HAVE LITERACY ATM
+    card+= '</div>';
+    //keywords former-green
+    card+= '<div class="browse-butt former-green">';
+            card+='<p>'+obj.keyword+'</p>';
+    card+= '</div>';
+    //media type keyword-green
+    card+= '<div class="browse-butt keyword-green">';
+            card+='<p>'+obj.media_type+'</p>';
+    card+= '</div>';
+    //time? date keyword-green
+    card+= '<div class="browse-butt keyword-green">';
+            card+='<p>'+obj.date+'</p>';
+    card+= '</div>';
+    //audience keyword-green
+    card+= '<div class="browse-butt keyword-green">';
+            card+='<p>'+obj.audience+'</p>';
+    card+= '</div>';
+
+    // card += '<p class="card-text">';
+    // {% for f in fields %}{% unless f.hidden == 'true' %}
+    //     {%if f.display_name != 'Creators'%}
+    //     if(obj[{{ f.field | jsonify }}]){
+    //         {% if f.display_name %}card += '<strong>{{ f.display_name }}:</strong> ';{% endif %}
+    //         {% if f.btn == 'true' %}
+    //         var btns = obj[{{ f.field | jsonify }}].split(";");
+    //         for (var i = 0, len = btns.length; i < len; i++) {
+    //             if(btns[i] != "") {
+    //             card += '<a class="btn btn-sm btn-secondary m-1 text-wrap" href="{{ page.url | relative_url }}#' + encodeURIComponent(btns[i].trim()) + '">' + btns[i].trim() + '</a>';
+    //             }
+    //         }
+    //         {% else %}
+    //         card += obj[{{ f.field | jsonify }}];
+    //         {% endif %}
+    //     {% unless forloop.last %}card += '<br>';{% endunless %}
+    //     }
+    //     {%endif %}
+    //     {% endunless %}
+    // {% endfor %}
+    // card += '</p>';
     // media type
-    if(obj.template && obj.template != "") {
-        mediaIcon = getIcon(obj.template,obj.format,"hidden");
-        card += '<p class="card-text"><small><a class="btn btn-sm btn-outline-secondary" href="{{ page.url | relative_url }}#' + encodeURIComponent(obj.template) + '">' + 
-        obj.template.toUpperCase() + ' ' + mediaIcon + '</a></small></p>';
-    }
+    // if(obj.template && obj.template != "") {
+    //     mediaIcon = getIcon(obj.template,obj.format,"hidden");
+    //     card += '<p class="card-text"><small><a class="btn btn-sm btn-outline-secondary" href="{{ page.url | relative_url }}#' + encodeURIComponent(obj.template) + '">' + 
+    //     obj.template.toUpperCase() + ' ' + mediaIcon + '</a></small></p>';
+    // }
     // view button
     card += '<hr><a href="' + itemHref + '" class="btn btn-sm btn-light" title="link to ' + obj.title + '">' + "{{ site.data.translations['_includes']['js']['browse-js.html']['view-full-record'][site.lang] | default: 'View Full Record' }}" + '</a>';
     // close divs

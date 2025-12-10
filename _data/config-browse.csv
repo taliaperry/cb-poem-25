@@ -4,3 +4,8 @@ creator,Creator,,,
 subject,,true
 location,,true
 identifier,,,true,Identifier
+doi,DOI,,false,
+creators_list,Creators,,false,
+keyword,Keyword,,false,
+media_type,Media Type,,false,
+audience,Audience,,false,
