@@ -20,11 +20,12 @@ var items = [
         "id":{{ item.objectid | jsonify }} }{% unless forloop.last %},{% endunless %}{%- endfor -%}
 ];
 
+console.log(items);
+
 {% include js/get-icon.js %}
 
 /* function to create cards for each item */ 
 function makeCard(obj) {
-    console.log(obj);
     // placeholder image for lazyload
     var placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E";
     // find item link
@@ -42,7 +43,7 @@ function makeCard(obj) {
     // this is going to be annoying to redesign.
     // start card
     
-    var card = '<div class="item col-lg-4 col-md-6 mb-2"><div class="card primary-green">';
+    var card = '<div class="item col-lg-3 col-md-2 mb-2"><div class="card primary-green">';
         // title
     card += '<div class="card-body text-center"> <h3 class="card-title h4"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
         // creators
@@ -117,6 +118,14 @@ function makeCard(obj) {
     return card;
 }
 
+function makeSideNav(fields){
+    var sn = "";
+    fields.forEach(field => {
+        sn+="<p><a href='#'>"+field.display_name+"</a></p>";
+    });
+    browseSidebarDiv.innerHTML=sn;
+}
+
 /* filter items function */
 function filterItems(arr,q) {
     // show loading icon
@@ -166,13 +175,15 @@ function shuffle(array) {
 /* init browse page */
 
 /* randomize items once at page load */
-shuffle(items);
+//i don't like shuffle jk-dec112025
+// shuffle(items);
 
 /* set some elements */ 
 var loadingIcon = document.querySelector("#loadingIcon");
 var filterTextBox = document.querySelector('#filterTextBox');
 var filterButton = document.querySelector("#filterButton");
 var browseItemsDiv = document.querySelector("#browseItems");
+var browseSidebarDiv = document.querySelector("#browseSidebar");
 
 /* filter if hash in initial URL */
 var query = "";
@@ -244,4 +255,5 @@ sortOptions.forEach((button) => {
   });
 }); 
 
+makeSideNav({{fields|jsonify}});
 </script>
