@@ -1,11 +1,8 @@
 field,display_name,btn,hidden,sort_name
-date,Date,,,Date
-creator,Creator,,,
-subject,Subject,true
-location,Location,true
-identifier,,,true,Identifier
-doi,DOI,,false,
-creators_list,Creators,,false,
+creators_card,Creators Short,,false,
 keyword,Keyword,,false,
+keyword_2a,Secondary Keyword,,false,
+keyword_2b,Secondary Keyword,,false,
 media_type,Media Type,,false,
+time_required,Time Required,,false,Time Required
 audience,Audience,,false,

@@ -29,7 +29,7 @@ keywords: artificial intelligence;literacy;learning;english
 # creator of the digital collection, to appear in meta tags; we typically use our GitHub usernames but feel free to just use your name
 author: jonathan kirichacha
 # language of the site, used in meta tags and GUI elements
-lang: es
+lang: en
 
 
 ##########
@@ -55,10 +55,10 @@ metadata: poem
 #   Enter information for your organization (replacing the CDIL links and name below) if you'd like to brand your site with a logo
 #   To remove the branding, comment out these values, or delete them. 
 #
-organization-name: "Project on Open and Evolving Metaliteracies (POEM)"
+organization-name: Carnegie Mellon University Libraries
 organization-link: https://library.cmu.edu/
-organization-logo-banner: https://library.cmu.edu/sites/default/files/2024-08/UL_CMU_Logo_Horiz_Black.png
-organization-logo-nav: 
+organization-logo-banner: /assets/img/logo_cmulib.svg
+organization-logo-nav: /assets/img/logo_cmulib.svg
 
 ##########
 # ROBOTS EXCLUDE
